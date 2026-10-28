@@ -100,6 +100,7 @@ function Index() {
   return (
     <div className="min-h-screen">
       <EggTimer />
+      <Toaster position="top-center" />
       <header className="flex items-center justify-between px-6 py-4">
         <div className="flex h-10 w-10 items-center justify-center bg-primary font-bold text-primary-foreground">K</div>
         <nav className="flex gap-4 text-sm">
