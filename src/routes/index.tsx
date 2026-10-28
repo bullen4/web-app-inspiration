@@ -94,7 +94,18 @@ function Index() {
     setF(empty);
   };
   const input = "w-full rounded-md bg-card px-3 py-2 text-foreground outline-none";
-  const hours = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"];
+  const schedule: [string, string][] = [
+    ["08:00", "Start & planering"],
+    ["09:00", "Mejl & telefonsamtal"],
+    ["10:00", "Team Möte"],
+    ["11:00", "Fokuserat arbete"],
+    ["12:00", "Lunch"],
+    ["13:00", "Kundmöte"],
+    ["14:00", "Projektarbete"],
+    ["15:00", "Kaffepaus & genomicsning"],
+    ["16:00", "Avslut & dagen därpå"],
+    ["17:00", "Slut för dagen"],
+  ];
   const today = new Date().toLocaleDateString("sv-SE", { weekday: "long", day: "numeric", month: "short" });
 
   return (
@@ -194,13 +205,19 @@ function Index() {
               <div className="text-xs capitalize">{today}</div>
               <h3 className="mb-4 text-2xl">Idag</h3>
               <div className="space-y-2">
-                {hours.map((h) => (
+                {schedule.map(([h, task]) => {
+                  const special = task === "Lunch" || task.toLowerCase().includes("möte");
+                  return (
                   <div key={h} className="flex items-center gap-3">
                     <span className="w-10 text-xs">{h}</span>
-                    <span className="h-2 w-2 rounded-full border border-primary-foreground" />
-                    <div className="flex flex-1 justify-between rounded-full bg-card px-4 py-1 text-sm text-foreground"><span>Planering</span><span>1 tim</span></div>
+                    <span className={`h-2 w-2 rounded-full border border-primary-foreground ${special ? "bg-primary-foreground" : ""}`} />
+                    <div className={`flex flex-1 justify-between rounded-full px-4 py-1 text-sm ${special ? "bg-primary-foreground text-primary" : "bg-card text-foreground"}`}>
+                      <span>{task}</span>
+                      <span>1 tim</span>
+                    </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
             <div className="md:border-l md:border-primary-foreground/40 md:pl-8">
