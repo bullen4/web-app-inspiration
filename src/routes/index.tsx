@@ -205,16 +205,19 @@ function Index() {
               <div className="text-xs capitalize">{today}</div>
               <h3 className="mb-4 text-2xl">Idag</h3>
               <div className="space-y-2">
-                {schedule.map(([h, task]) => (
+                {schedule.map(([h, task]) => {
+                  const special = task === "Lunch" || task.toLowerCase().includes("möte");
+                  return (
                   <div key={h} className="flex items-center gap-3">
                     <span className="w-10 text-xs">{h}</span>
-                    <span className={`h-2 w-2 rounded-full border border-primary-foreground ${task === "Lunch" || task.includes("Möte") ? "bg-primary-foreground" : ""}`} />
-                    <div className={`flex flex-1 justify-between rounded-full px-4 py-1 text-sm ${task === "Lunch" || task.includes("Möte") ? "bg-primary-foreground text-primary" : "bg-card text-foreground"}`}>
+                    <span className={`h-2 w-2 rounded-full border border-primary-foreground ${special ? "bg-primary-foreground" : ""}`} />
+                    <div className={`flex flex-1 justify-between rounded-full px-4 py-1 text-sm ${special ? "bg-primary-foreground text-primary" : "bg-card text-foreground"}`}>
                       <span>{task}</span>
                       <span>1 tim</span>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
             <div className="md:border-l md:border-primary-foreground/40 md:pl-8">
