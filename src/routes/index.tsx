@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { EggTimer } from "@/components/EggTimer";
-import { Plus, X, Check } from "lucide-react";
+import { Plus, X, Check, ChevronDown } from "lucide-react";
+import { toast } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 import hero from "@/assets/hero.jpg";
 
 export const Route = createFileRoute("/")({
