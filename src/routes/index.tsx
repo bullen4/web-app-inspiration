@@ -205,11 +205,14 @@ function Index() {
               <div className="text-xs capitalize">{today}</div>
               <h3 className="mb-4 text-2xl">Idag</h3>
               <div className="space-y-2">
-                {hours.map((h) => (
+                {schedule.map(([h, task]) => (
                   <div key={h} className="flex items-center gap-3">
                     <span className="w-10 text-xs">{h}</span>
-                    <span className="h-2 w-2 rounded-full border border-primary-foreground" />
-                    <div className="flex flex-1 justify-between rounded-full bg-card px-4 py-1 text-sm text-foreground"><span>Planering</span><span>1 tim</span></div>
+                    <span className={`h-2 w-2 rounded-full border border-primary-foreground ${task === "Lunch" || task.includes("Möte") ? "bg-primary-foreground" : ""}`} />
+                    <div className={`flex flex-1 justify-between rounded-full px-4 py-1 text-sm ${task === "Lunch" || task.includes("Möte") ? "bg-primary-foreground text-primary" : "bg-card text-foreground"}`}>
+                      <span>{task}</span>
+                      <span>1 tim</span>
+                    </div>
                   </div>
                 ))}
               </div>
