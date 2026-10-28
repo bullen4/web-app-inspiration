@@ -73,8 +73,17 @@ function Index() {
   const [jobs, setJobs] = useState<Item[]>(
     ["Rapport", "Möte", "Mejl", "Budget", "Presentation"].map((t, i) => ({ id: 100 + i, title: t, desc: "Beskrivning", date: "", color: 0, section: "Morgon" })),
   );
-  const toggle = (list: Item[], set: (x: Item[]) => void, id: number) =>
+  const [colorOpen, setColorOpen] = useState(false);
+  const [doneCount, setDoneCount] = useState(0);
+  const toggle = (list: Item[], set: (x: Item[]) => void, id: number) => {
+    const item = list.find((i) => i.id === id);
+    if (item && !item.done) {
+      const n = doneCount + 1;
+      setDoneCount(n);
+      if (n % 4 === 0) toast.success("Bra jobbat! 🎉", { description: `Du har bockat av ${n} listor.` });
+    }
     set(list.map((i) => (i.id === id ? { ...i, done: !i.done } : i)));
+  };
 
   const create = () => {
     if (!f.title.trim()) return;
@@ -118,13 +127,19 @@ function Index() {
             <h3 className="mb-2 text-2xl">Skapa lista</h3>
             <div className="space-y-4 rounded-xl bg-panel p-6 text-panel-foreground">
               <div className="flex gap-4">
-                <div>
+                <div className="relative">
                   <label className="text-sm">Färg</label>
-                  <div className="mt-2 flex flex-col gap-1">
-                    {COLORS.map((c, i) => (
-                      <button key={c} onClick={() => setF({ ...f, color: i })} className={`h-4 w-4 rounded-full ${c} ${f.color === i ? "ring-2 ring-panel-foreground" : "opacity-60"}`} aria-label={`Färg ${i + 1}`} />
-                    ))}
-                  </div>
+                  <button onClick={() => setColorOpen(!colorOpen)} className="mt-1 flex items-center gap-1 rounded-md bg-card px-2 py-2" aria-label="Välj färg">
+                    <span className={`h-5 w-5 rounded-full ${COLORS[f.color]}`} />
+                    <ChevronDown className="h-4 w-4 text-foreground" />
+                  </button>
+                  {colorOpen && (
+                    <div className="absolute left-0 top-full z-20 mt-1 flex flex-col gap-2 rounded-md bg-card p-2 shadow-lg">
+                      {COLORS.map((c, i) => (
+                        <button key={c} onClick={() => { setF({ ...f, color: i }); setColorOpen(false); }} className={`h-6 w-6 rounded-full ${c} ${f.color === i ? "ring-2 ring-primary" : ""}`} aria-label={`Färg ${i + 1}`} />
+                      ))}
+                    </div>
+                  )}
                 </div>
                 <div className="flex-1">
                   <label className="text-sm">Titel</label>
