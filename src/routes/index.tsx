@@ -94,7 +94,18 @@ function Index() {
     setF(empty);
   };
   const input = "w-full rounded-md bg-card px-3 py-2 text-foreground outline-none";
-  const hours = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"];
+  const schedule: [string, string][] = [
+    ["08:00", "Start & planering"],
+    ["09:00", "Mejl & telefonsamtal"],
+    ["10:00", "Team Möte"],
+    ["11:00", "Fokuserat arbete"],
+    ["12:00", "Lunch"],
+    ["13:00", "Kundmöte"],
+    ["14:00", "Projektarbete"],
+    ["15:00", "Kaffepaus & genomicsning"],
+    ["16:00", "Avslut & dagen därpå"],
+    ["17:00", "Slut för dagen"],
+  ];
   const today = new Date().toLocaleDateString("sv-SE", { weekday: "long", day: "numeric", month: "short" });
 
   return (
