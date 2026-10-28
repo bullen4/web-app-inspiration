@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { EggTimer } from "@/components/EggTimer";
 import { Plus, X, Check } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 
@@ -87,6 +88,7 @@ function Index() {
 
   return (
     <div className="min-h-screen">
+      <EggTimer />
       <header className="flex items-center justify-between px-6 py-4">
         <div className="flex h-10 w-10 items-center justify-center bg-primary font-bold text-primary-foreground">K</div>
         <nav className="flex gap-4 text-sm">
@@ -98,10 +100,14 @@ function Index() {
       </header>
 
       <section id="hem" className="relative h-[420px] overflow-hidden">
-        <img src={hero} alt="Vit bil vid havet" width={1600} height={704} className="absolute inset-0 h-full w-full object-cover" />
+        <img src={hero} alt="Bil i ljust landskap" width={1584} height={672} className="absolute inset-0 h-full w-full object-cover" />
         <div className="relative ml-[30%] pt-16">
           <h1 className="text-6xl font-light">Hej Kimmy!</h1>
           <p className="mt-6 max-w-[12rem] text-lg">Vad vill du skapa för lista?</p>
+          <div className="mt-6 flex gap-3">
+            <a href="#privat" className="rounded-full border border-primary bg-card px-6 py-2 font-semibold text-foreground">iPrivat</a>
+            <a href="#jobb" className="rounded-full bg-primary px-6 py-2 font-semibold text-primary-foreground">iJobb</a>
+          </div>
         </div>
       </section>
 
